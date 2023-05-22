@@ -1,7 +1,7 @@
 from unittest import TestCase
 from unittest.mock import patch
 
-from nlpython.llm import OpenAIChatInterface
+from nlpython.llm import OpenAIChatInterface, OpenAICompletionInterface
 
 
 class TestOpenAIChatInterface(TestCase):
@@ -17,10 +17,10 @@ class TestOpenAIChatInterface(TestCase):
         )
 
 
-class TestOpenAICompletitionInterface(TestCase):
+class TestOpenAICompletionInterface(TestCase):
     @patch("nlpython.llm.openai.Completion.create")
     def test_run__openai_completion_is_used(self, mock_completion_create):
-        interface = OpenAIChatInterface()
+        interface = OpenAICompletionInterface()
         model = "model"
         messages = [{"role": "system", "content": "hello"}]
         interface.run(model, messages)
@@ -28,7 +28,7 @@ class TestOpenAICompletitionInterface(TestCase):
 
     @patch("nlpython.llm.openai.Completion.create")
     def test_run__if_no_history_prompt_is_generated(self, mock_completion_create):
-        interface = OpenAIChatInterface()
+        interface = OpenAICompletionInterface()
         model = "model"
         messages = [{"role": "system", "content": "hello"}]
         interface.run(model, messages)
@@ -39,7 +39,7 @@ class TestOpenAICompletitionInterface(TestCase):
 
     @patch("nlpython.llm.openai.Completion.create")
     def test_run__if_history_prompt_is_generated(self, mock_completion_create):
-        interface = OpenAIChatInterface()
+        interface = OpenAICompletionInterface()
         model = "model"
         messages = [
             {"role": "system", "content": "hello"},
