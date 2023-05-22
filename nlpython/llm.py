@@ -1,11 +1,10 @@
-import os
-from abc import abstractmethod
+from abc import abstractmethod, ABC
 from typing import List, Dict, Type
 
 import openai
 
 
-class LLMBaseInterface:
+class LLMBaseInterface(ABC):
     def __call__(self, *args, **kwargs):
         return self.run(*args, **kwargs)
 
@@ -25,7 +24,7 @@ class OpenAIChatInterface(LLMBaseInterface):
         return model_response
 
 
-class OpenAICompletitionInterface(LLMBaseInterface):
+class OpenAICompletionInterface(LLMBaseInterface):
     PROMPT_TEMPLATE = (
         "{system_message}\n\n" "Chat History:\n{history}\n\n" "Assistant:"
     )
@@ -66,7 +65,7 @@ SUPPORTED_MODELS = [
     "gpt-3.5-turbo",
 ]
 MODEL_TO_API: Dict[str, Type[LLMBaseInterface]] = {
-    "text-davinci-003": OpenAICompletitionInterface,
+    "text-davinci-003": OpenAICompletionInterface,
     "gpt-4": OpenAIChatInterface,
     "gpt-3.5-turbo": OpenAIChatInterface,
 }
