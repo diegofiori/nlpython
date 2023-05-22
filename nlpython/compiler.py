@@ -33,10 +33,11 @@ class NLPythonCompiler:
         return final_code
     
 
-def compile(path_to_code: str):
+def compile_file(path_to_code: str) -> str:
     with open(path_to_code, "r") as f:
         code = f.read()
     compiled_code = NLPythonCompiler().compile(code)
     python_code_path = Path(path_to_code).parent / "_nlp_compiled.py"
     with open(python_code_path, "w") as f:
         f.write(compiled_code)
+    return str(python_code_path)
