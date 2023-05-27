@@ -32,7 +32,7 @@ class NLPConverter:
     def convert(self, code: str):
         commands = [x.strip() for x in code.split("\n\n") if x.strip()]
         system_message = {"role": "system", "content": self._system_message}
-        code = None
+        code = ""
         for i, command in enumerate(commands):
             messages = [system_message]
             if i > 0:
@@ -54,5 +54,3 @@ class NLPConverter:
                     f"iteration"
                 )
         return code
-
-
